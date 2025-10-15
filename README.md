@@ -57,6 +57,6 @@ Puedes acceder a la aplicación web en: [https://shootstars.sytes.net](https://s
 ## Instalación y despliegue
 1. Clonar el repositorio:
    ```bash
-   git clone https://github.com/tu-usuario/shootstars.git
+   git clone https://github.com/tu-usuario/ShootStars.git
 
 
