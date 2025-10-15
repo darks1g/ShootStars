@@ -1,0 +1,21 @@
+body,
+html {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    height: 100%;
+    background: linear-gradient(to bottom, #000010, #16003a);
+}
+
+canvas {
+    display: block;
+}
+
+#space {
+    opacity: 0;
+    transition: opacity 1s ease-in;
+}
+
+#space.fade-in {
+    opacity: 1;
+}
