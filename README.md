@@ -25,7 +25,7 @@ Puedes acceder a la aplicación web en: [https://shootstars.sytes.net](https://s
 
 ## Tecnologías utilizadas
 - **Frontend:** HTML, CSS y JavaScript
-- **Backend:** PHP
+- **Backend:** PHP con Composer
 - **Base de datos:** MySQL
 - **Correo electrónico:** PHPMailer para envío de códigos de doble autenticación y notificaciones
 - **Servidor:** Apache2 en Debian
@@ -37,6 +37,7 @@ Puedes acceder a la aplicación web en: [https://shootstars.sytes.net](https://s
     <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" height="30" alt="php logo"  />
     <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/composer/composer-original.svg" height="30" alt="composer logo"  />
     <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" height="30" alt="mysql logo"  />
+    <img src="https://avatars.githubusercontent.com/u/3959702?v=4" height="30" alt="phpmailer logo"  />
     <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apache/apache-original.svg" height="30" alt="apache logo"  />
     <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/debian/debian-original.svg" height="30" alt="debian logo"  />
   </div>
