@@ -11,5 +11,8 @@
 </head>
 <body>
     <canvas id="space"></canvas>
+
+
+    <?php include 'includes/footer.php'; ?>
 </body>
 </html>
