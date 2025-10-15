@@ -1,0 +1,5 @@
+# Ignorar la carpeta vendor de Composer (donde se instalan PHPMailer y demás dependencias)
+backend/vendor/
+
+# Ignorar archivos temporales de Composer (opcional)
+backend/composer.phar
