@@ -7,6 +7,9 @@ ShootStars es una aplicación web que permite a los usuarios dejar mensajes efí
 
 La aplicación incluye funcionalidades de registro e inicio de sesión con doble autenticación, panel de control para gestionar mensajes y un sistema de moderación administrado por un administrador.
 
+## Sitio web
+Puedes acceder a la aplicación web en: [shootstars.sytes.net](shootstars.sytes.net)
+
 ## Funcionalidades principales
 - Visualización de mensajes aleatorios.
 - Interacciones con los mensajes (reacciones y reportes).
