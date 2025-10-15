@@ -1,6 +1,6 @@
 # ShootStars - Aplicación Web de Mensajes Efímeros
 
-![Logo opcional](shootstars.sytes.net/imgs/logo.png)
+![Logo opcional](frontend/imgs/logo.png)
 
 ## Descripción
 ShootStars es una aplicación web que permite a los usuarios dejar mensajes efímeros para que otros usuarios los vean de forma aleatoria. Los usuarios pueden reaccionar a los mensajes con "me gusta" o emoticonos y reportar contenido inapropiado. La temática de la aplicación se inspira en el espacio y las estrellas fugaces.
