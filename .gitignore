@@ -6,3 +6,6 @@ backend/composer.phar
 
 # Ignorar notas de desarrollo
 notes.txt
+
+# Ignorar archivos de configuración de la aplicación
+.env
