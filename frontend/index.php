@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="es" style="background-color: #000010;">
 
@@ -12,6 +13,18 @@
 </head>
 
 <body>
+    <header class="main-header">
+        <div class="header-content">
+            <?php if (isset($_SESSION['user_id'])): ?>
+                <span class="welcome">Hola, <?php echo htmlspecialchars($_SESSION['username']); ?></span>
+                <a href="dashboard.php" class="btn-nav">Mi Panel</a>
+                <a href="/backend/auth/logout.php" class="btn-nav">Cerrar Sesión</a>
+            <?php else: ?>
+                <a href="login.php" class="btn-nav">Iniciar Sesión</a>
+                <a href="register.php" class="btn-nav">Registrarse</a>
+            <?php endif; ?>
+        </div>
+    </header>
 <!-- CONTENEDOR DEL MENSAJE -->
 <div id="mensajeContainer" class="mensaje-container hidden">
     <div class="mensaje-box">
