@@ -9,8 +9,8 @@
 </head>
 <body>
     <div class="auth-container">
-        <h1 class="logo">ShootStars</h1>
-        <div class="auth-box">
+        <h1 class="logo-big">ShootStars</h1>
+        <div class="auth-box glass-panel">
             <h2>Verificación de Dos Pasos</h2>
             <p style="margin-bottom: 15px; font-size: 0.9em;">Se ha enviado un código a tu correo.</p>
             <form action="/backend/auth/verify_2fa.php" method="POST">
@@ -26,7 +26,7 @@
 
                 <button type="submit" class="btn-primary">Verificar</button>
             </form>
-            <p><a href="login.php">Volver al Login</a></p>
+            <p><a href="login">Volver al Login</a></p>
         </div>
     </div>
     <canvas id="space"></canvas>

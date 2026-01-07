@@ -9,8 +9,8 @@
 </head>
 <body>
     <div class="auth-container">
-        <h1 class="logo">ShootStars</h1>
-        <div class="auth-box">
+        <h1 class="logo-big">ShootStars</h1>
+        <div class="auth-box glass-panel">
             <h2>Iniciar Sesión</h2>
             <form action="/backend/auth/login.php" method="POST">
                 
@@ -28,10 +28,14 @@
                     <p class="error-msg"><?php echo htmlspecialchars($_GET['error']); ?></p>
                 <?php endif; ?>
 
+                <div style="text-align: right; margin-bottom: 20px;">
+                    <a href="forgot_password" style="font-size: 0.85em; color: #4cc9f0; text-decoration: none;">¿Olvidaste tu contraseña?</a>
+                </div>
+
                 <button type="submit" class="btn-primary">Entrar</button>
             </form>
-            <p>¿No tienes cuenta? <a href="register.php">Regístrate</a></p>
-            <p><a href="index.php">Volver al inicio</a></p>
+            <p>¿No tienes cuenta? <a href="register">Regístrate</a></p>
+            <p><a href="/">Volver al inicio</a></p>
         </div>
     </div>
     <canvas id="space"></canvas>

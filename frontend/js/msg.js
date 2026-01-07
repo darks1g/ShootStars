@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (!modalAbierto) {
             modalAbierto = true;
+            document.getElementById("heroOverlay").classList.add("hidden"); // Hide hero
             cargarMensajeAleatorio();
             return;
         }
@@ -22,6 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function cerrarModal() {
         modal.classList.add("hidden");
+        document.getElementById("heroOverlay").classList.remove("hidden"); // Show hero
         modalAbierto = false;
     }
 
@@ -81,7 +83,13 @@ function cargarMensajeAleatorio() {
 
             newBtnReport.addEventListener("click", (e) => {
                 e.stopPropagation();
-                if (confirm("¿Quieres reportar este mensaje? Necesitas iniciar sesión.")) {
+
+                if (!window.isLoggedIn) {
+                    alert("Debes iniciar sesión para reportar mensajes.");
+                    return;
+                }
+
+                if (confirm("¿Quieres reportar este mensaje?")) {
                     reportarMensaje(data.id_mensaje);
                 }
             });

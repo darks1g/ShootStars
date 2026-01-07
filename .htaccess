@@ -1,0 +1,10 @@
+RewriteEngine On
+
+# Si el archivo no es un directorio
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Y si el archivo con extensión .php existe
+RewriteCond %{REQUEST_FILENAME}.php -f
+
+# Reescribir la URL internamente a .php
+RewriteRule ^(.*)$ $1.php [L]
