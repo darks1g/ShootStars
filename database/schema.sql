@@ -70,3 +70,14 @@ CREATE TABLE reacciones (
     UNIQUE KEY unique_user_msg (id_mensaje, id_usuario),
     UNIQUE KEY unique_guest_msg (id_mensaje, cookie_id)
 );
+-- Tabla de ecos (respuestas anónimas)
+CREATE TABLE ecos (
+    id_eco INT AUTO_INCREMENT PRIMARY KEY,
+    id_mensaje INT NOT NULL,
+    id_usuario INT NOT NULL,
+    contenido TEXT NOT NULL,
+    fecha_creacion DATETIME DEFAULT CURRENT_TIMESTAMP,
+    visible BOOLEAN DEFAULT TRUE,
+    FOREIGN KEY (id_mensaje) REFERENCES mensajes(id_mensaje) ON DELETE CASCADE,
+    FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario) ON DELETE CASCADE
+);

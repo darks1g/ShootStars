@@ -26,9 +26,10 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['is_admin']) || $_SESSION['
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $action = $_POST['action'] ?? '';
-    $id_mensaje = $_POST['id_mensaje'] ?? 0;
+    $id = $_POST['id'] ?? 0;
+    $tipo = $_POST['tipo'] ?? 'mensaje';
 
-    if (!$id_mensaje) {
+    if (!$id) {
         http_response_code(400);
         echo json_encode(['success' => false, 'error' => 'ID faltante']);
         exit;
@@ -39,25 +40,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($action === 'delete') {
         // --- DELETE ACTION ---
         
-        // 1. Get author ID before deleting (needed for blocking logic)
-        $qry = $conn->prepare("SELECT id_usuario FROM mensajes WHERE id_mensaje = ?");
-        $qry->bind_param("i", $id_mensaje);
+        if ($tipo === 'eco') {
+            $qry = $conn->prepare("SELECT id_usuario FROM ecos WHERE id_eco = ?");
+        } else {
+            $qry = $conn->prepare("SELECT id_usuario FROM mensajes WHERE id_mensaje = ?");
+        }
+        
+        $qry->bind_param("i", $id);
         $qry->execute();
         $res = $qry->get_result();
         
         if ($res->num_rows == 0) {
             http_response_code(404);
-            echo json_encode(['success' => false, 'error' => 'Mensaje no encontrado']);
+            echo json_encode(['success' => false, 'error' => ucfirst($tipo) . ' no encontrado']);
             exit;
         }
         $authorId = $res->fetch_assoc()['id_usuario'];
 
-        // 2. Delete the message
-        $del = $conn->prepare("DELETE FROM mensajes WHERE id_mensaje = ?");
-        $del->bind_param("i", $id_mensaje);
+        // 2. Delete the item
+        if ($tipo === 'eco') {
+            $del = $conn->prepare("DELETE FROM ecos WHERE id_eco = ?");
+        } else {
+            $del = $conn->prepare("DELETE FROM mensajes WHERE id_mensaje = ?");
+        }
+        $del->bind_param("i", $id);
         
         if ($del->execute()) {
-            
             // 3. Optional: Block the User
             $blockUser = $_POST['block_user'] ?? 'false';
             if ($blockUser === 'true') {
@@ -65,19 +73,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                  $block->bind_param("i", $authorId);
                  $block->execute();
             }
-
             echo json_encode(['success' => true]);
         } else {
             http_response_code(500);
-            echo json_encode(['success' => false, 'error' => 'Error al eliminar']);
+            echo json_encode(['success' => false, 'error' => 'Error al eliminar: ' . $conn->error]);
         }
 
     } elseif ($action === 'ignore') {
         // --- IGNORE ACTION ---
-        // Clears all reports associated with this message
-        
-        $delRep = $conn->prepare("DELETE FROM reportes WHERE id_mensaje = ?");
-        $delRep->bind_param("i", $id_mensaje);
+        if ($tipo === 'eco') {
+            $delRep = $conn->prepare("DELETE FROM reportes WHERE id_eco = ?");
+        } else {
+            $delRep = $conn->prepare("DELETE FROM reportes WHERE id_mensaje = ?");
+        }
+        $delRep->bind_param("i", $id);
         
         if ($delRep->execute()) {
              echo json_encode(['success' => true]);

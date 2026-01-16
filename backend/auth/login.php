@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $conn = getDBConnection();
 
     // 2. Retrieve User Data
-    $stmt = $conn->prepare("SELECT id_usuario, nombre_usuario, contraseña, email, es_admin, avatar FROM usuarios WHERE email = ? OR nombre_usuario = ?");
+    $stmt = $conn->prepare("SELECT id_usuario, nombre_usuario, contraseña, email, es_admin, avatar, estado FROM usuarios WHERE email = ? OR nombre_usuario = ?");
     $stmt->bind_param("ss", $emailOrUser, $emailOrUser);
     $stmt->execute();
     $res = $stmt->get_result();

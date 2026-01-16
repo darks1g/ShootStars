@@ -13,60 +13,6 @@ if (!isset($_SESSION['user_id'])) {
     <title>Mi Panel - ShootStars</title>
     <link rel="icon" type="image/png" href="imgs/logo.png">
     <link rel="stylesheet" href="css/main.css">
-    <style>
-        .dashboard-container {
-            padding: 100px 20px 50px;
-            max-width: 800px;
-            margin: 0 auto;
-            color: white;
-            font-family: sans-serif;
-            position: relative;
-            z-index: 10;
-        }
-        .msg-card {
-            background: rgba(80, 70, 110, 0.8);
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 20px;
-            backdrop-filter: blur(5px);
-        }
-        .msg-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-            font-size: 0.9em;
-            opacity: 0.8;
-        }
-        .msg-body {
-            font-size: 1.1em;
-            margin-bottom: 15px;
-            background: rgba(255,255,255,0.1);
-            padding: 10px;
-            border-radius: 5px;
-        }
-        .msg-stats {
-            display: flex;
-            gap: 10px;
-            font-size: 0.9em;
-        }
-        .btn-edit, .btn-delete {
-            background: transparent;
-            border: 1px solid rgba(255,255,255,0.3);
-            color: white;
-            padding: 5px 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-right: 5px;
-        }
-        .btn-delete:hover {
-            background: #e63946;
-            border-color: #e63946;
-        }
-        .btn-edit:hover {
-             background: #4cc9f0;
-             border-color: #4cc9f0;
-        }
-    </style>
 </head>
 <body>
     <!-- Header is defined below, do not include index.php which is a full page -->
@@ -189,14 +135,9 @@ if (!isset($_SESSION['user_id'])) {
                         const btn = document.createElement('button');
                         btn.id = 'load-more-btn';
                         btn.innerText = 'Cargar más mensajes';
+                        btn.className = 'btn-admin'; // Estilo unificado
                         btn.style.width = '100%';
-                        btn.style.padding = '10px';
                         btn.style.marginTop = '20px';
-                        btn.style.background = 'rgba(255,255,255,0.1)';
-                        btn.style.border = '1px solid #4cc9f0';
-                        btn.style.color = '#4cc9f0';
-                        btn.style.borderRadius = '5px';
-                        btn.style.cursor = 'pointer';
                         btn.onclick = () => {
                             currentPage++;
                             loadMessages(false);
