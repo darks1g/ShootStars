@@ -5,6 +5,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ShootStars es una plataforma de mensajería efímera y anónima. Comparte pensamientos fugaces y explora el universo de mensajes de otros usuarios de forma segura.">
+    <meta property="og:image" content="https://shootstars.sytes.net/imgs/logo.png">
     <title>ShootStars</title>
     <link rel="icon" type="image/png" href="imgs/logo.png">
     <link rel="stylesheet" href="css/main.css?v=<?php echo time(); ?>">

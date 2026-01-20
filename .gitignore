@@ -9,3 +9,11 @@ notes.txt
 
 # Ignorar archivos de configuración de la aplicación
 .env
+
+# Ignorar archivos de documentación
+docs/memoria_txt/
+docs/Memoria.pdf
+docs/Memoria.txt
+docs/Recomendaciones_Memoria.pdf
+docs/Recomendaciones_Memoria.txt
+docs/5-noviembre-2025.pdf

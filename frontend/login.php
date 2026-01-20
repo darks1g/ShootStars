@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Accede a tu cuenta de ShootStars. Gestiona tus mensajes y reacciones en la red de mensajería efímera más segura.">
+    <meta property="og:image" content="https://shootstars.sytes.net/imgs/logo.png">
     <title>Login - ShootStars</title>
     <link rel="icon" type="image/png" href="imgs/logo.png">
     <link rel="stylesheet" href="css/main.css">

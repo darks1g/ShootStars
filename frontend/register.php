@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Crea una cuenta en ShootStars. Únete a la comunidad de mensajería anónima con seguridad garantizada y doble autenticación.">
+    <meta property="og:image" content="https://shootstars.sytes.net/imgs/logo.png">
     <title>Registro - ShootStars</title>
     <link rel="icon" type="image/png" href="imgs/logo.png">
     <link rel="stylesheet" href="css/main.css">
