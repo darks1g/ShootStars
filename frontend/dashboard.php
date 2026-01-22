@@ -123,7 +123,9 @@ if (!isset($_SESSION['user_id'])) {
                                 <button class="btn-edit" onclick="toggleEdit(${msg.id_mensaje}, this)">Editar</button>
                                 <button class="btn-delete" onclick="deleteMsg(${msg.id_mensaje})">Eliminar</button>
                                 <button class="btn-save hidden" onclick="saveMsg(${msg.id_mensaje}, this)" style="background: #4cc9f0; color: white; border:none; padding: 5px 10px; border-radius: 5px;">Guardar</button>
+                                <button class="btn-eco-dashboard" onclick="toggleEcos(${msg.id_mensaje}, this)">Ver Ecos</button>
                             </div>
+                            <div id="ecos-container-${msg.id_mensaje}" class="ecos-dashboard-list hidden" style="margin-top: 15px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.1);"></div>
                         `;
                         list.appendChild(div);
                     });
@@ -334,6 +336,62 @@ if (!isset($_SESSION['user_id'])) {
                         });
                 }
             }
+        }
+        
+
+        /**
+         * Toggles the visibility of Ecos for a specific message.
+         * Fetches them from backend if not already loaded.
+         * @param {number} id Message ID
+         * @param {HTMLElement} btn The toggle button
+         */
+        function toggleEcos(id, btn) {
+            const container = document.getElementById(`ecos-container-${id}`);
+            
+            if (!container.classList.contains('hidden')) {
+                // Hide
+                container.classList.add('hidden');
+                btn.textContent = "Ver Ecos";
+                return;
+            }
+
+            // Show
+            container.classList.remove('hidden');
+            btn.textContent = "Ocultar";
+
+            // Check if already loaded using dataset
+            if (container.dataset.loaded === "true") return;
+
+            container.innerHTML = '<p style="font-size: 0.9em; opacity: 0.7;">Cargando ecos...</p>';
+
+            fetch(`/backend/get_ecos.php?id_mensaje=${id}&limit=50`) // Get a good amount
+                .then(res => res.json())
+                .then(data => {
+                    container.innerHTML = ''; // Clear loading text
+                    container.dataset.loaded = "true"; // Mark as loaded
+
+                    if (data.ecos && data.ecos.length > 0) {
+                        data.ecos.forEach(eco => {
+                            const ecoDiv = document.createElement('div');
+                            ecoDiv.className = 'dashboard-eco-item';
+                            // Styles moved to main.css
+                            
+                            ecoDiv.innerHTML = `
+                                <div class="eco-content-footer">
+                                    <span style="color: #4cc9f0;">${eco.fecha_creacion}</span>
+                                </div>
+                                <div style="margin-top: 5px;">${eco.contenido}</div>
+                            `;
+                            container.appendChild(ecoDiv);
+                        });
+                    } else {
+                        container.innerHTML = '<p style="font-size: 0.9em; opacity: 0.7; font-style: italic;">No hay ecos en este mensaje.</p>';
+                    }
+                })
+                .catch(err => {
+                    console.error(err);
+                    container.innerHTML = '<p style="color: #ff4444;">Error al cargar ecos.</p>';
+                });
         }
     </script>
 </body>

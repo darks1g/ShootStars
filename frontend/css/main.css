@@ -658,6 +658,40 @@ footer p img:hover {
     letter-spacing: 1px;
 }
 
+/* Dashboard Specifics for Ecos */
+.dashboard-eco-item {
+    background: rgba(114, 9, 183, 0.15);
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: background 0.3s;
+}
+
+.dashboard-eco-item:hover {
+    background: rgba(114, 9, 183, 0.25);
+}
+
+.btn-eco-dashboard {
+    background: #7209b7; 
+    color: white; 
+    margin-left: auto;
+    border: none;
+    padding: 5px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.btn-eco-dashboard:hover {
+    background: #560bad;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(114, 9, 183, 0.4);
+}
+
 .eco-report-btn {
     background: transparent;
     border: none;
