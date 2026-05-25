@@ -1,9 +1,6 @@
 <?php
-// backend/db.php
-
 function getDBConnection() {
-    // Adjust path to .env if needed. 
-    // Assuming backend/db.php, so .env is in ../../.env (project root)
+    // Configurar ruta del .env
     $envPath = __DIR__ . '/../.env';
     
     if (!file_exists($envPath)) {
@@ -20,7 +17,7 @@ function getDBConnection() {
     $conn = new mysqli($host, $user, $pass, $db);
 
     if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
+        die("Error de conexion: " . $conn->connect_error);
     }
     
     $conn->set_charset("utf8mb4");

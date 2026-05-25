@@ -75,7 +75,7 @@
                     }
                 }
 
-                // AJAX Check User
+                // Verificar usuario por AJAX
                 userInput.addEventListener("blur", () => {
                     const val = userInput.value.trim();
                     if(val.length < 3) return;
@@ -92,7 +92,7 @@
                     });
                 });
 
-                // AJAX Check Email
+                // Verificar email por AJAX
                 emailInput.addEventListener("blur", () => {
                     const val = emailInput.value.trim();
                     if(!val.includes('@')) return;
@@ -130,8 +130,7 @@
                     el.style.color = isGood ? "#4cc9f0" : "#e63946";
                 }
 
-                // Password Regex
-                // Min 8 chars, 1 Upper, 1 Lower, 1 Number, 1 Special
+                // Validar contrasena: Min 8 caracteres, mayuscula, minuscula, numero, caracter especial
                 const strongRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
 
                 passInput.addEventListener("keyup", () => {

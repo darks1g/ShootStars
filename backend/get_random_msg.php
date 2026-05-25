@@ -1,23 +1,16 @@
 <?php
 /**
- * Random Message Endpoint
- * 
- * Fetches a single random, visible message for the home page.
- * Includes user avatar (or default).
- * 
- * Method: GET
- * Output: JSON Message Object
- * 
- * @package ShootStars\Messages
+ * Endpoint mensaje aleatorio
+ * Obtiene un mensaje aleatorio y visible
+ * Metodo: GET
  */
 header('Content-Type: application/json');
 
-// Development Error Reporting (Disable in Production)
 ini_set('display_errors', 0);
 ini_set('display_startup_errors', 0);
 error_reporting(E_ALL);
 
-// Load Env
+// Cargar .env
 $env = parse_ini_file(__DIR__ . "/../.env");
 
 $host = $env['DB_HOST'];
@@ -33,7 +26,7 @@ if ($conn->connect_error) {
     exit;
 }
 
-// Query: Random visible message
+// Obtener mensaje aleatorio visible
 $sql = "SELECT 
             m.id_mensaje, 
             m.contenido, 
@@ -61,14 +54,13 @@ $res = $conn->query($sql);
 if ($res && $res->num_rows > 0) {
     $mensaje = $res->fetch_assoc();
 
-    // Fallback for avatar
+    // Avatar por defecto
     if (empty($mensaje['avatar'])) {
         $mensaje['avatar'] = "imgs/default-pfp.jpg";
     }
 
     echo json_encode($mensaje);
 } else {
-    // No content found (204 No Content is technically correct but JSON {} is easier for frontend)
     echo json_encode(["error" => "No hay mensajes visibles"]);
 }
 

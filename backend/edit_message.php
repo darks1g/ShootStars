@@ -25,11 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->bind_param("sii", $contenido, $id_mensaje, $id_usuario);
     
     if ($stmt->execute()) {
-        if ($stmt->affected_rows >= 0) { // >= 0 because content might be same
-             // Check if it actually exists/belongs to user if rows=0? 
-             // Ideally we check ownership first, but this is simple enough.
-             // If affected_rows=0 it might mean content same OR not found.
-             // Let's assume success if no error.
+        if ($stmt->affected_rows >= 0) {
             echo json_encode(['success' => true]);
         } else {
             echo json_encode(['success' => false, 'error' => 'Error al actualizar']);

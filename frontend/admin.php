@@ -35,11 +35,7 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['is_admin']) || $_SESSION['
     <script src="js/bg.js"></script>
 
     <script>
-        /**
-         * Loads reported messages via pagination.
-         * 
-         * @param {boolean} reset If true, clears list and resets to page 1.
-         */
+        // Carga items reportados con paginacion
         let currentPage = 1;
         const limit = 5;
         const list = document.getElementById('reports-list');
@@ -76,7 +72,7 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['is_admin']) || $_SESSION['
                             div.style.background = "rgba(230, 57, 70, 0.05)";
                         }
 
-                        // Parse motivos to list
+                        // Procesar motivos en lista
                         const motivosList = item.motivos ? item.motivos.split(' || ').map(m => `<li>${m || 'Sin motivo especificado'}</li>`).join('') : '<li>Sin motivos</li>';
 
                         div.innerHTML = `
@@ -103,7 +99,7 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['is_admin']) || $_SESSION['
                         list.appendChild(div);
                     });
 
-                    // Pagination Controls
+                    // Controles de paginacion
                     const oldPaginator = document.getElementById('admin-paginator');
                     if (oldPaginator) oldPaginator.remove();
 

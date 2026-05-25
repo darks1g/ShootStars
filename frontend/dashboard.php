@@ -21,7 +21,6 @@ if (!isset($_SESSION['user_id'])) {
     
     <header class="main-header">
         <div class="header-content">
-            <!-- Avatar Upload Wrapper -->
             <div class="user-avatar-container" style="position: relative; display: inline-block; cursor: pointer; margin-right: 15px; vertical-align: middle;">
                 <?php 
                     // Fetch current avatar from DB directly or session if updated
@@ -65,16 +64,11 @@ if (!isset($_SESSION['user_id'])) {
     <script src="js/bg.js"></script>
     <script>
         let currentPage = 1;
-        const limit = 5; // Low limit to test pagination easily
+        const limit = 5;
         const list = document.getElementById('messages-list');
         let isLoading = false;
 
-        /**
-         * Loads messages for the current user with pagination.
-         * Appends new messages to the list unless reset is true.
-         * 
-         * @param {boolean} reset If true, clears the list and starts from page 1.
-         */
+        // Carga mensajes del usuario con paginacion
         function loadMessages(reset = false) {
             if (isLoading) return;
             isLoading = true;
@@ -157,13 +151,10 @@ if (!isset($_SESSION['user_id'])) {
                 });
         }
         
-        // Initial Load
+        // Carga inicial
         loadMessages(true);
 
-        /**
-         * Creates a new message.
-         * Sends POST request to backend and reloads page on success.
-         */
+        // Crear nuevo mensaje
         function createMsg() {
             const input = document.getElementById('new-msg-content');
             const content = input.innerText.trim();
@@ -191,11 +182,7 @@ if (!isset($_SESSION['user_id'])) {
                 .catch(err => console.error(err));
         }
 
-        /**
-         * Deletes a message by ID.
-         * Requires user confirmation.
-         * @param {number} id Message ID
-         */
+        // Eliminar mensaje
         function deleteMsg(id) {
             if(!confirm("¿Seguro que quieres eliminar este mensaje?")) return;
             
@@ -213,11 +200,7 @@ if (!isset($_SESSION['user_id'])) {
                 });
         }
 
-        /**
-         * Toggles edit mode for a message card.
-         * @param {number} id Message ID
-         * @param {HTMLElement} btn The button element clicked
-         */
+        // Alternar modo edicion
         function toggleEdit(id, btn) {
             const card = document.querySelector(`.msg-card[data-id='${id}']`);
             const body = card.querySelector('.msg-body');
@@ -241,11 +224,7 @@ if (!isset($_SESSION['user_id'])) {
             }
         }
 
-        /**
-         * Saves changes to an edited message.
-         * @param {number} id Message ID
-         * @param {HTMLElement} btn Save button element
-         */
+        // Guardar cambios del mensaje
         function saveMsg(id, btn) {
             const card = document.querySelector(`.msg-card[data-id='${id}']`);
             const body = card.querySelector('.msg-body');
@@ -269,7 +248,7 @@ if (!isset($_SESSION['user_id'])) {
                 });
         }
 
-        // --- Avatar Upload Logic ---
+        // Logica de carga de avatar
         const avatarContainer = document.querySelector('.user-avatar-container');
         const avatarInput = document.getElementById('avatar-input');
         const currentAvatar = document.getElementById('current-avatar');

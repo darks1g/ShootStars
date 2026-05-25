@@ -21,24 +21,24 @@ if (!isset($_FILES['avatar']) || $_FILES['avatar']['error'] !== UPLOAD_ERR_OK) {
 
 $file = $_FILES['avatar'];
 $allowedTypes = ['image/jpeg', 'image/png'];
-$maxSize = 2 * 1024 * 1024; // 2MB
+$maxSize = 2 * 1024 * 1024;
 
-// Validate Type
+// Validar tipo
 $finfo = new finfo(FILEINFO_MIME_TYPE);
 $mime = $finfo->file($file['tmp_name']);
 
 if (!in_array($mime, $allowedTypes)) {
-    echo json_encode(['success' => false, 'error' => 'Solo se permiten imágenes JPG o PNG']);
+    echo json_encode(['success' => false, 'error' => 'Solo se permiten imagenes JPG o PNG']);
     exit;
 }
 
-// Validate Size
+// Validar tamaño
 if ($file['size'] > $maxSize) {
     echo json_encode(['success' => false, 'error' => 'La imagen no debe superar los 2MB']);
     exit;
 }
 
-// Generate Name
+// Generar nombre
 $ext = ($mime === 'image/png') ? 'png' : 'jpg';
 $userId = $_SESSION['user_id'];
 $newFileName = uniqid('avatar_') . '_' . $userId . '.' . $ext;
@@ -46,25 +46,22 @@ $uploadDir = __DIR__ . '/../frontend/avatars/';
 $uploadPath = $uploadDir . $newFileName;
 $publicPath = 'avatars/' . $newFileName;
 
-// Create dir if not exists (redundant if ran command, but safe)
+// Crear directorio si no existe
 if (!is_dir($uploadDir)) {
     mkdir($uploadDir, 0777, true);
 }
 
-// Move File
+// Mover archivo
 if (move_uploaded_file($file['tmp_name'], $uploadPath)) {
     
-    // Update DB
+    // Actualizar BD
     $conn = getDBConnection();
-    
-    // First, optional: Delete old avatar if distinct from default? 
-    // Implementation for simplicity: Just overwrite DB reference.
     
     $stmt = $conn->prepare("UPDATE usuarios SET avatar = ? WHERE id_usuario = ?");
     $stmt->bind_param("si", $publicPath, $userId);
     
     if ($stmt->execute()) {
-        $_SESSION['avatar'] = $publicPath; // Update session
+        $_SESSION['avatar'] = $publicPath;
         echo json_encode(['success' => true, 'avatar' => $publicPath]);
     } else {
         echo json_encode(['success' => false, 'error' => 'Error al actualizar base de datos']);

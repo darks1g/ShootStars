@@ -1,12 +1,11 @@
 <?php
-// backend/email_helper.php
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 require __DIR__ . '/vendor/autoload.php';
 
 function sendEmail($to, $subject, $body) {
-    // Load .env
+    // Cargar .env
     $envPath = __DIR__ . '/../.env';
     if (!file_exists($envPath)) {
         return ['success' => false, 'error' => '.env file missing'];
@@ -16,7 +15,7 @@ function sendEmail($to, $subject, $body) {
     $mail = new PHPMailer(true);
 
     try {
-        // Server settings
+        // Configurar servidor
         $mail->isSMTP();
         $mail->Host       = 'smtp.gmail.com';
         $mail->SMTPAuth   = true;
@@ -24,14 +23,13 @@ function sendEmail($to, $subject, $body) {
         $mail->Password   = $env['SMTP_PASS'] ?? '';
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; 
         $mail->Port       = 587;
-        $mail->CharSet    = 'UTF-8'; // Fix Encoding
+        $mail->CharSet    = 'UTF-8';
 
-        // Recipients
+        // Destinatarios
         $mail->setFrom($env['SMTP_USER'] ?? 'noreply@shootstars.com', 'ShootStars');
         $mail->addAddress($to);
 
-        // Styling Template
-        // We use inline styles for maximum compatibility, but try to import fonts
+        // Plantilla con estilos
         $fullBody = "
         <!DOCTYPE html>
         <html lang='es'>
@@ -80,7 +78,7 @@ function sendEmail($to, $subject, $body) {
         </body>
         </html>";
 
-        // Content
+        // Contenido
         $mail->isHTML(true);
         $mail->Subject = $subject;
         $mail->Body    = $fullBody;
@@ -89,6 +87,6 @@ function sendEmail($to, $subject, $body) {
         $mail->send();
         return ['success' => true];
     } catch (Exception $e) {
-        return ['success' => false, 'error' => "Message could not be sent. Mailer Error: {$mail->ErrorInfo}"];
+        return ['success' => false, 'error' => "Error al enviar correo: {$mail->ErrorInfo}"];
     }
 }

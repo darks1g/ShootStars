@@ -1,15 +1,12 @@
 <?php
 /**
- * Database Seeder for ShootStars
- * Populates database with diverse simulated activity using direct SQL for speed.
- * 
- * Usage: php backend/seed_data.php
+ * Generador de datos para ShootStars
+ * Usa SQL directo para velocidad
+ * Uso: php backend/seed_data.php
  */
 
 require_once __DIR__ . '/db.php';
 $conn = getDBConnection();
-
-// DATASETS
 
 $users = [
     ['CosmicWanderer', 'wanderer@example.com'],
@@ -30,8 +27,8 @@ $users = [
 ];
 
 $messages = [
-    // Deep / Philosophical
-    "A veces miro al cielo y me pregunto si alguien más está mirando la misma estrella y sintiendo la misma soledad.",
+    // Profundos / Filosoficos
+    "A veces miro al cielo y me pregunto si alguien mas esta mirando la misma estrella y sintiendo la misma soledad.",
     "El universo no es hostil, ni amigable. Es simplemente indiferente.",
     "Somos polvo de estrellas que piensa acerca de las estrellas.",
     "¿Y si el silencio del espacio es simplemente que todos están escondidos?",
@@ -44,7 +41,7 @@ $messages = [
     "Llorar en el espacio es imposible, las lágrimas no caen. Como mis sentimientos.",
     "Me rompieron el corazón y ahora orbito solo en la oscuridad.",
 
-    // Happy / Hopeful
+    // Felices / Esperanzadores
     "¡He conseguido el trabajo de mis sueños! El universo a veces conspira a favor.",
     "La vida es bella, como una supernova explotando en colores.",
     "Hoy sonreí a un extraño y me devolvió la sonrisa. Pequeños milagros.",
@@ -96,13 +93,13 @@ $ecos_pool = [
     "¿Seguro?"
 ];
 
-// 1. CREATE USERS
-echo "Creating User Accounts...\n";
+// Crear usuarios
+echo "Creando cuentas de usuario...\n";
 $user_ids = [];
 $default_pass = password_hash('password123', PASSWORD_DEFAULT);
 
 foreach ($users as $u) {
-    // Check exist
+    // Verificar existencia
     $chk = $conn->prepare("SELECT id_usuario FROM usuarios WHERE nombre_usuario = ?");
     $chk->bind_param("s", $u[0]);
     $chk->execute();
@@ -120,11 +117,11 @@ foreach ($users as $u) {
     $chk->close();
 }
 
-// 2. CREATE MESSAGES
-echo "Creating Messages...\n";
+// Crear mensajes
+echo "Creando mensajes...\n";
 $msg_ids = [];
 
-// Create 50 random messages
+// Crear 50 mensajes aleatorios
 for ($i = 0; $i < 50; $i++) {
     $uid = $user_ids[array_rand($user_ids)];
     $content = $messages[array_rand($messages)];
@@ -140,10 +137,10 @@ for ($i = 0; $i < 50; $i++) {
     $stmt->close();
 }
 
-// 3. CREATE ECOS & REACTIONS
-echo "Dispensing Ecos & Reactions...\n";
+// Crear ecos y reacciones
+echo "Generando ecos y reacciones...\n";
 
-// Fetch ALL messages to ensure older ones get love too
+// Obtener todos los mensajes
 $result = $conn->query("SELECT id_mensaje FROM mensajes");
 $all_msg_ids = [];
 while ($row = $result->fetch_assoc()) {

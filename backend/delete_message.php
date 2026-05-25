@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $conn = getDBConnection();
 
-    // Verify ownership
+    // Verificar propiedad
     $stmt = $conn->prepare("DELETE FROM mensajes WHERE id_mensaje = ? AND id_usuario = ?");
     $stmt->bind_param("ii", $id_mensaje, $id_usuario);
     

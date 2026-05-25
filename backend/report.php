@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $conn = getDBConnection();
 
-    // Check if duplicate report
+    // Verificar reporte duplicado
     if ($id_eco) {
         $check = $conn->prepare("SELECT id_reporte FROM reportes WHERE id_usuario = ? AND id_eco = ?");
         $check->bind_param("ii", $id_usuario, $id_eco);
@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $countSql->execute();
         $cntVal = $countSql->get_result()->fetch_assoc()['total'];
 
-        // Threshold = 5
+        // Umbral de 5 reportes
         if ($cntVal >= 5) {
             require_once __DIR__ . '/email_helper.php';
             

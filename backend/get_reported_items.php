@@ -1,18 +1,14 @@
 <?php
 /**
- * Get Reported Items (Messages & Ecos)
- * 
- * Fetches both messages and ecos that have >= 1 report.
- * Used by the Admin Panel.
- * 
- * Method: GET
- * Params: page, limit
+ * Obtener items reportados (mensajes y ecos)
+ * Usado por panel de administracion
+ * Metodo: GET
  */
 session_start();
 require_once __DIR__ . '/db.php';
 header('Content-Type: application/json');
 
-// Auth Check (Admin Only)
+// Verificar admin
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['is_admin']) || $_SESSION['is_admin'] != 1) {
     http_response_code(403);
     echo json_encode([]);
@@ -21,20 +17,20 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['is_admin']) || $_SESSION['
 
 $conn = getDBConnection();
 
-// 1. Pagination
+// Paginacion
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $limit = isset($_GET['limit']) ? (int)$_GET['limit'] : 10;
 $offset = ($page - 1) * $limit;
 
-// 2. Count Total Unique Reported Items
+// Contar items reportados
 $totalSql = "SELECT 
                 (SELECT COUNT(DISTINCT id_mensaje) FROM reportes WHERE id_mensaje IS NOT NULL) + 
                 (SELECT COUNT(DISTINCT id_eco) FROM reportes WHERE id_eco IS NOT NULL) as total";
 $totalRes = $conn->query($totalSql);
 $totalItems = $totalRes->fetch_assoc()['total'];
 
-// 3. Fetch Data (Union of Messages and Ecos)
-$sql = "(SELECT 'mensaje' as tipo, m.id_mensaje as id, m.contenido, m.id_usuario, m.fecha_creacion, 
+// Obtener items (union mensajes y ecos)
+$sql = "(SELECT 'mensaje' as tipo, m.id_mensaje as id, m.contenido, m.id_usuario, m.fecha_creacion,
                 COUNT(r.id_reporte) as total_reportes,
                 GROUP_CONCAT(r.motivo SEPARATOR ' || ') as motivos
          FROM mensajes m

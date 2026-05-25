@@ -35,7 +35,7 @@
         </div>
     </header>
     
-    <!-- HERO SECTION -->
+    <!-- Seccion hero -->
     <div class="hero-overlay" id="heroOverlay">
         <h1 class="hero-title">ShootStars</h1>
         <p class="hero-subtitle">Haz clic en el firmamento para leer una estrella</p>

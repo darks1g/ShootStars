@@ -1,15 +1,8 @@
 <?php
 /**
- * Get User Messages
- * 
- * Fetches messages for the logged-in user with pagination.
- * 
- * Method: GET
- * Params: 
- *  - page (int) [default=1]
- *  - limit (int) [default=10]
- * 
- * @package ShootStars\Messages
+ * Obtener mensajes del usuario
+ * Obtiene mensajes del usuario autenticado con paginacion
+ * Metodo: GET
  */
 session_start();
 require_once __DIR__ . '/db.php';
@@ -25,12 +18,12 @@ if (!isset($_SESSION['user_id'])) {
 $conn = getDBConnection();
 $userId = $_SESSION['user_id'];
 
-// 1. Pagination Params
+// Parametros paginacion
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $limit = isset($_GET['limit']) ? (int)$_GET['limit'] : 10;
 $offset = ($page - 1) * $limit;
 
-// 2. Get Total Count (for pagination metadata)
+// Contar total
 $countSql = "SELECT COUNT(*) as total FROM mensajes WHERE id_usuario = ?";
 $stmtCount = $conn->prepare($countSql);
 $stmtCount->bind_param("i", $userId);
@@ -39,7 +32,7 @@ $totalRes = $stmtCount->get_result();
 $totalRows = $totalRes->fetch_assoc()['total'];
 $stmtCount->close();
 
-// 3. Fetch Messages
+// Obtener mensajes
 $sql = "SELECT id_mensaje, contenido, fecha_creacion, visible, 
         me_gusta, risa, triste, enfado, caca, sorpresa, rezar, calavera, corazon 
         FROM mensajes 
@@ -57,7 +50,7 @@ while ($row = $result->fetch_assoc()) {
     $mensajes[] = $row;
 }
 
-// 4. Return Data + Pagination
+// Devolver datos y paginacion
 echo json_encode([
     'data' => $mensajes,
     'pagination' => [

@@ -1,23 +1,15 @@
 <?php
 /**
- * Admin Actions Handler
- * 
- * Handles administrative actions on messages:
- * - Delete Message
- * - Delete Message & Block User
- * - Ignore Reports (Clear report log for a message)
- * 
- * Method: POST
- * Input: `action`, `id_mensaje`, [optional] `block_user`
- * 
- * @package ShootStars\Admin
+ * Manejador de acciones administrativas
+ * Eliminar/bloquear mensajes y ecos, ignorar reportes.
+ * Método: POST
  */
 session_start();
 require_once __DIR__ . '/db.php';
 
 header('Content-Type: application/json');
 
-// 1. Admin Auth Check
+// Verificar admin
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['is_admin']) || $_SESSION['is_admin'] != 1) {
     http_response_code(403);
     echo json_encode(['success' => false, 'error' => 'No autorizado']);
@@ -38,8 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $conn = getDBConnection();
 
     if ($action === 'delete') {
-        // --- DELETE ACTION ---
-        
+        // Eliminar
         if ($tipo === 'eco') {
             $qry = $conn->prepare("SELECT id_usuario FROM ecos WHERE id_eco = ?");
         } else {
@@ -57,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         $authorId = $res->fetch_assoc()['id_usuario'];
 
-        // 2. Delete the item
+        // Eliminar item
         if ($tipo === 'eco') {
             $del = $conn->prepare("DELETE FROM ecos WHERE id_eco = ?");
         } else {
@@ -66,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $del->bind_param("i", $id);
         
         if ($del->execute()) {
-            // 3. Optional: Block the User
+            // Opcionalmente bloquear usuario
             $blockUser = $_POST['block_user'] ?? 'false';
             if ($blockUser === 'true') {
                  $block = $conn->prepare("UPDATE usuarios SET estado = 'suspendido' WHERE id_usuario = ?");
@@ -80,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
     } elseif ($action === 'ignore') {
-        // --- IGNORE ACTION ---
+        // Ignorar reportes
         if ($tipo === 'eco') {
             $delRep = $conn->prepare("DELETE FROM reportes WHERE id_eco = ?");
         } else {
