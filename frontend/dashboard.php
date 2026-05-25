@@ -29,7 +29,7 @@ if (!isset($_SESSION['user_id'])) {
                 ?>
                 <img src="<?php echo htmlspecialchars($avatarPath); ?>" id="current-avatar" alt="Avatar" style="width: 40px; height: 40px; border-radius: 50%; border: 2px solid #4cc9f0; object-fit: cover;">
                 <div class="avatar-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); border-radius: 50%; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s; color: white; font-size: 10px; text-align: center;">
-                    📷
+                    ✏️
                 </div>
                 <input type="file" id="avatar-input" style="display: none;" accept="image/jpeg, image/png">
             </div>
