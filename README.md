@@ -53,10 +53,3 @@ Puedes acceder a la aplicación web en: [https://shootstars.sytes.net](https://s
   <img src="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png" height="30" alt="github logo"  />
   <img src="https://skillicons.dev/icons?i=mysql" height="30" alt="mysql logo"  />
 </div>
-
-## Instalación y despliegue
-1. Clonar el repositorio:
-   ```bash
-   git clone https://github.com/tu-usuario/ShootStars.git
-
-
